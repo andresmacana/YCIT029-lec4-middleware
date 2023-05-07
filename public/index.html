@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome to my site</h1>
+    <p>Please enter your name and email</p>
+    <input type="text" id="customerName" />
+    <input type="text" id="customerEmail" />
+    <button id="submitButton">Send info to server</button>
+  </body>
+  <script>
+    const btn = document.getElementById("submitButton");
+    btn.addEventListener("click", () => {
+      const custNameInput = document.getElementById("customerName");
+      const custEmailInput = document.getElementById("customerEmail");
+      console.log(
+        "Button was clicked",
+        custNameInput.value,
+        custEmailInput.value
+      );
+
+      fetch("/customer-info", {
+        headers: {
+          "content-type": "application/json", //para que aparezca en body
+          "x-cust-name": custNameInput.value,
+          "x-cust-email": custEmailInput.value,
+        },
+        method: "POST",
+        /* body:JSON.stringify({
+            name:custNameInput.value,
+            email:custEmailInput.value,
+        }); */
+      });
+    });
+  </script>
+</html>
